@@ -27,27 +27,46 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+function normalizeSupabaseUrl(url) {
+    return url
+        .trim()
+        .replace(/\/+$/, "")
+        .replace(/\/rest\/v1\/?$/i, "");
+}
+
+function showStatusError(message) {
+    const hint = document.querySelector(".sync-hint");
+    if (!hint) return;
+    hint.textContent = `連線失敗：${message}`;
+    hint.style.color = "#ffcdd2";
+    hint.style.fontWeight = "bold";
+}
+
 function showConfigError(message) {
     const grid = document.getElementById("mapGrid");
     grid.innerHTML = `
         <div style="grid-column: 1 / -1; background: rgba(255,255,255,0.92); padding: 20px; border-radius: 12px; max-width: 600px; margin: 0 auto;">
             <p style="color: #b71c1c; font-weight: bold; margin: 0 0 8px;">無法連線</p>
             <p style="margin: 0; color: #333;">${escapeHtml(message)}</p>
-            <p style="margin: 12px 0 0; font-size: 0.9rem; color: #555;">請依 README 設定 <code>js/config.js</code> 與 Supabase。</p>
+            <p style="margin: 12px 0 0; font-size: 0.9rem; color: #555;">請檢查 GitHub Secret <code>SUPABASE_URL</code>（只要專案網址，不要含 /rest/v1）。</p>
         </div>
     `;
 }
 
 function initSupabase() {
-    const url = window.SUPABASE_URL;
+    const rawUrl = window.SUPABASE_URL;
     const key = window.SUPABASE_ANON_KEY;
-    if (!url || !key || url.includes("YOUR_PROJECT") || key.includes("YOUR_ANON")) {
-        showConfigError("尚未設定 Supabase：請複製 js/config.example.js 為 js/config.js 並填入 URL 與 anon key。");
+    if (!rawUrl || !key || rawUrl.includes("YOUR_PROJECT") || key.includes("YOUR_ANON")) {
+        showStatusError("尚未設定 Supabase URL 或 API key。");
         return false;
     }
     if (typeof window.supabase === "undefined" || !window.supabase.createClient) {
-        showConfigError("Supabase 函式庫未載入。");
+        showStatusError("Supabase 函式庫未載入，請檢查網路或稍後再試。");
         return false;
+    }
+    const url = normalizeSupabaseUrl(rawUrl);
+    if (url !== rawUrl.trim().replace(/\/+$/, "")) {
+        console.warn("SUPABASE_URL 已自動移除 /rest/v1，建議改為專案根網址。");
     }
     supabase = window.supabase.createClient(url, key);
     return true;
@@ -184,9 +203,9 @@ function updateAllTimers() {
 }
 
 async function init() {
-    if (!initSupabase()) return;
-
     renderCards();
+
+    if (!initSupabase()) return;
 
     try {
         await loadAllTimers();
@@ -194,7 +213,7 @@ async function init() {
         updateAllTimers();
         setInterval(updateAllTimers, 1000);
     } catch (err) {
-        showConfigError(err.message || String(err));
+        showStatusError(err.message || String(err));
     }
 }
 
