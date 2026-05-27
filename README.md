@@ -52,7 +52,7 @@ cd C:\Users\ytwei\Projects\pikmin-mushroom-room
 git add .
 git commit -m "初始版本：Supabase 同步蘑菇戰情室"
 git branch -M main
-git remote add origin https://github.com/<你的帳號>/pikmin-mushroom-room.git
+git remote add origin https://github.com/frobel0520/pikmin-mushroom-room.git
 git push -u origin main
 ```
 
@@ -62,15 +62,15 @@ git push -u origin main
 
 | Name | Value |
 |------|--------|
-| `SUPABASE_URL` | Supabase Project URL |
-| `SUPABASE_ANON_KEY` | Supabase anon public key |
+| `SUPABASE_URL` | **Project URL**（例如 `https://xxxxx.supabase.co`）— **不要**填 REST 網址（不可含 `/rest/v1`） |
+| `SUPABASE_ANON_KEY` | anon public 或 publishable key |
 
 ### 4.3 啟用 GitHub Pages
 
 1. **Settings → Pages**
 2. **Build and deployment → Source**：選 **GitHub Actions**
 3. 推送 `main` 後，Actions 會自動部署；網址約為  
-   `https://<你的帳號>.github.io/pikmin-mushroom-room/`
+   `https://frobel0520.github.io/pikmin-mushroom-room/`
 
 把此連結傳給家人即可（勿公開張貼，因無登入保護）。
 
