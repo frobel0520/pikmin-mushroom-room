@@ -15,7 +15,7 @@ const points = {
 const timerState = new Map();
 
 /** @type {import('@supabase/supabase-js').SupabaseClient | null} */
-let supabase = null;
+let supabaseClient = null;
 
 function allPointNames() {
     return Object.values(points).flat();
@@ -68,7 +68,7 @@ function initSupabase() {
     if (url !== rawUrl.trim().replace(/\/+$/, "")) {
         console.warn("SUPABASE_URL 已自動移除 /rest/v1，建議改為專案根網址。");
     }
-    supabase = window.supabase.createClient(url, key);
+    supabaseClient = window.supabase.createClient(url, key);
     return true;
 }
 
@@ -78,14 +78,14 @@ function applyRow(row) {
 }
 
 async function loadAllTimers() {
-    const { data, error } = await supabase.from("mushroom_timers").select("point_name, rebirth_at");
+    const { data, error } = await supabaseClient.from("mushroom_timers").select("point_name, rebirth_at");
     if (error) throw error;
     allPointNames().forEach((name) => timerState.set(name, null));
     (data || []).forEach(applyRow);
 }
 
 function subscribeRealtime() {
-    supabase
+    supabaseClient
         .channel("mushroom_timers_room")
         .on(
             "postgres_changes",
@@ -141,7 +141,7 @@ async function calculateRebirth(name) {
     const remainingMs = (h * 3600 + m * 60 + s) * 1000;
     const rebirthTime = Date.now() + remainingMs + BUFFER_MS;
 
-    const { error } = await supabase.from("mushroom_timers").upsert(
+    const { error } = await supabaseClient.from("mushroom_timers").upsert(
         {
             point_name: name,
             rebirth_at: rebirthTime,
@@ -162,7 +162,7 @@ async function calculateRebirth(name) {
 }
 
 async function clearTimer(name) {
-    const { error } = await supabase.from("mushroom_timers").delete().eq("point_name", name);
+    const { error } = await supabaseClient.from("mushroom_timers").delete().eq("point_name", name);
     if (error) {
         alert(`清除失敗：${error.message}`);
         return;
