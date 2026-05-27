@@ -1,0 +1,9 @@
+# Local Supabase credentials (copy from config.example.js)
+js/config.js
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
