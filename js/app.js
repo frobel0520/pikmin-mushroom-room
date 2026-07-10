@@ -3,11 +3,12 @@
  */
 
 const BUFFER_MS = 5 * 60 * 1000;
+const URGENT_THRESHOLD_MS = 5 * 60 * 1000;
 
 const points = {
     col1: ["水源運動公園", "豐田甲天下石碑", "欣岳逸境", "基督教會"],
     col2: ["涼亭", "溪洲公園", "神秘維納斯", "指示牌"],
-    col3: ["無名神像祠", "天第一沙鷗變電箱", "長頸鹿佈告欄", "麒麟天地"],
+    col3: ["無名神像祠", "天地一沙鷗變電箱", "長頸鹿佈告欄", "麒麟天地"],
     col4: ["好山好水真快樂", "溪北公園"],
 };
 
@@ -167,14 +168,14 @@ function updateAllTimers() {
         const target = timerState.get(name);
         if (target == null) {
             display.innerText = "--:--:--";
-            display.classList.remove("active", "done");
+            display.classList.remove("active", "done", "counting");
             return;
         }
 
         const diff = target - now;
         if (diff <= 0) {
             display.innerText = "🍄 已重生！";
-            display.classList.remove("active");
+            display.classList.remove("active", "counting");
             display.classList.add("done");
         } else {
             const totalSec = Math.floor(diff / 1000);
@@ -185,7 +186,13 @@ function updateAllTimers() {
                 .toString()
                 .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
             display.classList.remove("done");
-            display.classList.add("active");
+            if (diff <= URGENT_THRESHOLD_MS) {
+                display.classList.remove("counting");
+                display.classList.add("active");
+            } else {
+                display.classList.remove("active");
+                display.classList.add("counting");
+            }
         }
     });
 }

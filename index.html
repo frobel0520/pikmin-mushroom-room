@@ -6,7 +6,7 @@
     <title>蘑菇戰情室</title>
     <style>
         :root {
-            --glass: rgba(44, 44, 47, 0.82);
+            --glass: rgba(44, 44, 47, 0.7);
             --glass-border: rgba(232, 180, 168, 0.16);
             --accent: rgb(180, 145, 143);
             --accent-soft: rgba(180, 145, 143, 0.35);
@@ -111,6 +111,10 @@
             display: block;
             margin-bottom: 5px;
             color: var(--timer-idle);
+        }
+
+        .timer-display.counting {
+            color: var(--text-light);
         }
 
         .timer-display.active {
