@@ -13,11 +13,12 @@
             --text-light: #f4f1f0;
             --card-text: #1a1a1a;
             --text-dim: #9a9a9d;
+            --point-color: #e8b4a2;
             --timer-idle: #6e6e72;
             --timer-active: #e8637a;
             --timer-active-glow: rgba(232, 99, 122, 0.35);
-            --timer-done: #e8b4a2;
-            --timer-done-glow: rgba(232, 180, 162, 0.35);
+            --timer-done: #ffd54f;
+            --timer-done-glow: rgba(255, 213, 79, 0.35);
         }
 
         body {
@@ -98,7 +99,7 @@
         .mush-name {
             font-weight: bold;
             font-size: clamp(0.72rem, 2.6vw, 0.95rem);
-            color: var(--text-light);
+            color: var(--point-color);
             display: block;
             margin-bottom: 5px;
             white-space: nowrap;
@@ -116,7 +117,7 @@
         }
 
         .timer-display.counting {
-            color: var(--text-light);
+            color: var(--point-color);
         }
 
         .timer-display.active {
@@ -149,7 +150,7 @@
         }
 
         .input-row input::placeholder {
-            color: var(--text-dim);
+            color: var(--card-text);
         }
 
         .input-row input:focus {
