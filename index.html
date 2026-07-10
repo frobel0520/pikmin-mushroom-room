@@ -6,11 +6,12 @@
     <title>蘑菇戰情室</title>
     <style>
         :root {
-            --glass: rgba(128, 128, 129, 0.7);
+            --glass: rgba(245, 245, 220, 0.9);
             --glass-border: rgba(232, 180, 168, 0.16);
             --accent: rgb(180, 145, 143);
             --accent-soft: rgba(180, 145, 143, 0.35);
             --text-light: #f4f1f0;
+            --card-text: #1a1a1a;
             --text-dim: #9a9a9d;
             --timer-idle: #6e6e72;
             --timer-active: #e8637a;
@@ -66,7 +67,8 @@
         .map-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 8px;
+            row-gap: 8px;
+            column-gap: 10px;
             width: 100%;
             max-width: 1200px;
             box-sizing: border-box;
@@ -96,7 +98,7 @@
         .mush-name {
             font-weight: bold;
             font-size: clamp(0.72rem, 2.6vw, 0.95rem);
-            color: var(--text-light);
+            color: var(--card-text);
             display: block;
             margin-bottom: 5px;
             white-space: nowrap;
@@ -114,7 +116,7 @@
         }
 
         .timer-display.counting {
-            color: var(--text-light);
+            color: var(--card-text);
         }
 
         .timer-display.active {
@@ -137,12 +139,12 @@
         .input-row input {
             width: 40px;
             padding: 4px 0;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(140, 87, 101, 0.55);
             border-radius: 4px;
             text-align: center;
             font-size: 0.8rem;
-            color: var(--text-light);
+            color: var(--card-text);
             transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
         }
 
@@ -152,7 +154,7 @@
 
         .input-row input:focus {
             outline: none;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.75);
             border-color: var(--accent);
             box-shadow: 0 0 0 3px var(--accent-soft);
         }
