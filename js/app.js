@@ -5,10 +5,10 @@
 const BUFFER_MS = 5 * 60 * 1000;
 
 const points = {
-    col1: ["水源運動公園", "豐田甲天下", "欣岳逸境", "基督教會"],
-    col2: ["無名神像嗣", "溪洲公園", "神秘維納斯", "指示牌"],
-    col3: ["天地一沙鷗變電箱", "麒麟天地"],
-    col4: ["溪北公園"],
+    col1: ["水源運動公園", "豐田甲天下石碑", "欣岳逸境", "基督教會"],
+    col2: ["涼亭", "溪洲公園", "神秘維納斯", "指示牌"],
+    col3: ["無名神像祠", "天第一沙鷗變電箱", "長頸鹿佈告欄", "麒麟天地"],
+    col4: ["好山好水真快樂", "溪北公園"],
 };
 
 /** @type {Map<string, number|null>} */
@@ -118,7 +118,6 @@ function renderCards() {
                         <input type="number" id="s-${safeId}" placeholder="秒" min="0" max="59">
                     </div>
                     <button type="button" class="set-btn" data-point="${escapeHtml(name)}">開始倒數！</button>
-                    <button type="button" class="clear-btn" data-clear="${escapeHtml(name)}">清除</button>
                 </div>
             `;
         });
@@ -126,9 +125,6 @@ function renderCards() {
 
     document.querySelectorAll(".set-btn").forEach((btn) => {
         btn.addEventListener("click", () => calculateRebirth(btn.dataset.point));
-    });
-    document.querySelectorAll(".clear-btn").forEach((btn) => {
-        btn.addEventListener("click", () => clearTimer(btn.dataset.clear));
     });
 }
 
@@ -161,16 +157,6 @@ async function calculateRebirth(name) {
     updateAllTimers();
 }
 
-async function clearTimer(name) {
-    const { error } = await supabaseClient.from("mushroom_timers").delete().eq("point_name", name);
-    if (error) {
-        alert(`清除失敗：${error.message}`);
-        return;
-    }
-    timerState.set(name, null);
-    updateAllTimers();
-}
-
 function updateAllTimers() {
     const now = Date.now();
     allPointNames().forEach((name) => {
@@ -181,14 +167,15 @@ function updateAllTimers() {
         const target = timerState.get(name);
         if (target == null) {
             display.innerText = "--:--:--";
-            display.style.color = "#d32f2f";
+            display.classList.remove("active", "done");
             return;
         }
 
         const diff = target - now;
         if (diff <= 0) {
             display.innerText = "🍄 已重生！";
-            display.style.color = "#2d5a27";
+            display.classList.remove("active");
+            display.classList.add("done");
         } else {
             const totalSec = Math.floor(diff / 1000);
             const hrs = Math.floor(totalSec / 3600);
@@ -197,7 +184,8 @@ function updateAllTimers() {
             display.innerText = `${hrs.toString().padStart(2, "0")}:${mins
                 .toString()
                 .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-            display.style.color = "#d32f2f";
+            display.classList.remove("done");
+            display.classList.add("active");
         }
     });
 }
