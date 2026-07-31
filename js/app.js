@@ -1,5 +1,5 @@
 /**
- * Shared mushroom rebirth timers for 本區 (Supabase sync).
+ * Shared mushroom rebirth timers (Supabase sync).
  */
 
 const BUFFER_MS = 5 * 60 * 1000;
