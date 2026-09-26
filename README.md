@@ -27,7 +27,16 @@
 
 ```
 index.html          # 頁面與樣式
+assets/favicon.svg  # 網站圖示
 js/app.js           # 倒數邏輯 + Supabase 同步（點位清單在這裡）
 supabase/schema.sql # 資料表與權限設定
 .github/workflows/  # Pages 自動部署
 ```
+
+## Harbor 整合
+
+`index.html` 載入 Harbor 維護腳本（`data-project="pikmin-mushroom-room"`，2026-09-15 起）：Harbor 開啟維護模式時顯示全螢幕維護畫面，有公告時顯示底部公告列；Harbor 連不上或逾時 800 ms 時頁面照常顯示。
+
+## 前身
+
+最早的單機版（只存在自己的瀏覽器、不同步）在 [customWebApps/pikmin](https://github.com/frobel0520/customWebApps/tree/main/pikmin)。
