@@ -53,4 +53,4 @@ supabase/schema.sql # 資料表與權限設定
 
 ## 前身
 
-最早的單機版（只存在自己的瀏覽器、不同步）在 [customWebApps/pikmin](https://github.com/frobel0520/customWebApps/tree/main/pikmin)。
+最早的單機版（只存在自己的瀏覽器、不同步）放在 customWebApps repo，該 repo 已於 2026-10-04 刪除。
