@@ -1,0 +1,65 @@
+{
+  "taskId": "SEC-P2-20261025",
+  "date": "2026-10-25",
+  "name": "pikmin-mushroom-room",
+  "baseCommit": "7c543c4ee7ec28735dc3225a82c08810cee9b3b9",
+  "baseBranch": "main",
+  "branch": "feature/sec-p2-20261025",
+  "state": "隔離修補已備妥，待整合",
+  "change": "浮動Supabase @2 CDN改為官方npm 2.118.0本地UMD，官方tarball SHA512核對、MIT授權保留；不再依賴CDN或未證實的SRI攔截結果。",
+  "checks": [
+    "1280／375px真實本地SDK載入、17卡片、鍵盤倒數與無溢出",
+    "client I/O fixture下各50暖handler樣本p95<100ms",
+    "REST模擬三次Failed to fetch後停止；正式SDK REST、Supabase RLS未驗證，不冒稱通過"
+  ],
+  "counts": null,
+  "python": null,
+  "securityGate": "passed_within_checked_scope",
+  "performance": {
+    "result": "not_applicable",
+    "reason": "Only CI source/pins changed or separately recorded runtime fixture metric; no production performance claim"
+  },
+  "validation": "浮動Supabase @2 CDN改為官方npm 2.118.0本地UMD，官方tarball SHA512核對、MIT授權保留；不再依賴CDN或未證實的SRI攔截結果。 1280／375px真實本地SDK載入、17卡片、鍵盤倒數與無溢出；client I/O fixture下各50暖handler樣本p95<100ms；REST模擬三次Failed to fetch後停止；正式SDK REST、Supabase RLS未驗證，不冒稱通過",
+  "integrationNeeded": true,
+  "pushed": false,
+  "deployed": false,
+  "merged": false,
+  "noreplyIdentityVerified": true,
+  "actionPins": 4,
+  "monthlyCost": "Local checks only. No paid APIs, cloud data writes, new recurring services, remote CI, merge or deployment.",
+  "limitations": [
+    "原始工作目錄、未提交修改與分支全部保留；本報告僅適用此隔離分支。",
+    "完整history／秘密輪替／正式服務與二進位鑑識不在此輪驗收，未評項目not_scored。"
+  ],
+  "runtime": {
+    "results": [
+      {
+        "width": 1280,
+        "realLocalUmdLoaded": true,
+        "cards": 17,
+        "keyboardCountdown": "pass",
+        "syntheticWrites": 61,
+        "p95LocalHandlerMs": 0.40000009536743164,
+        "thresholdMs": 100,
+        "horizontalOverflow": false
+      },
+      {
+        "width": 375,
+        "realLocalUmdLoaded": true,
+        "cards": 17,
+        "keyboardCountdown": "pass",
+        "syntheticWrites": 61,
+        "p95LocalHandlerMs": 0.2999999523162842,
+        "thresholdMs": 100,
+        "horizontalOverflow": false
+      }
+    ],
+    "scope": "Verified official local UMD and real countdown UI with an injected client I/O fixture; SDK REST and production RLS not verified; previous REST fixture and SRI interception attempts not accepted as passes"
+  },
+  "vendor": {
+    "version": "2.118.0",
+    "tarball": "https://registry.npmjs.org/@supabase/supabase-js/-/supabase-js-2.118.0.tgz",
+    "integrity": "sha512-FxI8UXMVC2UG7IkeiI8fuQZqq2oI3JeSuN8MPIC2RLVaoEAxKS0nqE6kii9Ewpq8f9gNPM6git1Y8f0vN/QLFw==",
+    "license": "MIT"
+  }
+}
