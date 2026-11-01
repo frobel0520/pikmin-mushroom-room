@@ -26,6 +26,8 @@
 - 開發規範：frobel0520/harbor 的 `standards/DevelopmentStandards.md`。
 - 部署：frobel0520/harbor 的 `standards/DeploymentHandbook.md`（範本在 `standards/deployment-templates/`）。
 - 本 repo 的規則或現況與上述文件衝突時，以權威文件為準；不符合的地方列為本 repo 待辦。repo 既有慣例（例如分支命名）依開發規範的規定保留。
-- 專案級別：公開級
+- 專案級別：產品級
 <!-- END:shared-standards -->
+
+級別說明：沒有登入，但 Supabase 開放匿名新增、修改、刪除共用資料，屬於開發規範 1.3 的「資料寫入」，所以是產品級（2026-11-01 由公開級調整）。現況與產品級要求的落差（SDLC 文件、部署 workflow、效能驗收）列為本 repo 待辦。
 
