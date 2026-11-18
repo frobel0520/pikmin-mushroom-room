@@ -17,7 +17,8 @@
             --card-text: #1a1a1a;
             --text-dim: #9a9a9d;
             --point-color: #e8b4a2;
-            --timer-idle: #6e6e72;
+            /* #a8a8ad 對卡片底（約 #272729）約 6.3:1，符合 WCAG AA */
+            --timer-idle: #a8a8ad;
             --timer-active: #e8637a;
             --timer-active-glow: rgba(232, 99, 122, 0.35);
             --timer-done: #ffd54f;
@@ -28,6 +29,7 @@
             margin: 0;
             padding: 10px;
             font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            color: var(--text-light);
             background-color: #1c1c1e;
             background-image:
                 radial-gradient(circle at 15% 20%, rgba(183, 110, 121, 0.12) 0%, transparent 45%),
@@ -135,19 +137,25 @@
 
         .input-row {
             display: flex;
-            gap: 2px;
+            gap: 3px;
             margin-bottom: 5px;
+            padding: 0 3px;
             justify-content: center;
         }
 
         .input-row input {
-            width: 40px;
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 56px;
+            min-height: 40px;
+            box-sizing: border-box;
             padding: 4px 0;
             background: rgba(255, 255, 255, 0.5);
             border: 1px solid rgba(140, 87, 101, 0.55);
             border-radius: 4px;
             text-align: center;
-            font-size: 0.8rem;
+            /* 16px 以上 iOS 聚焦時不會自動放大頁面 */
+            font-size: 16px;
             color: var(--card-text);
             transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
         }
@@ -156,8 +164,13 @@
             color: var(--card-text);
         }
 
+        .input-row input:focus-visible,
+        .set-btn:focus-visible {
+            outline: 2px solid var(--timer-done);
+            outline-offset: 2px;
+        }
+
         .input-row input:focus {
-            outline: none;
             background: rgba(255, 255, 255, 0.75);
             border-color: var(--accent);
             box-shadow: 0 0 0 3px var(--accent-soft);
@@ -171,6 +184,7 @@
 
         .set-btn {
             width: 90%;
+            min-height: 40px;
             padding: 8px 0;
             background: linear-gradient(135deg, #c98a99, #8c5765);
             color: var(--text-light);
