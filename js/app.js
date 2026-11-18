@@ -109,14 +109,15 @@ function renderCards() {
         colEl.innerHTML = "";
         points[colId].forEach((name) => {
             const safeId = encodeURIComponent(name);
+            const label = escapeHtml(name);
             colEl.innerHTML += `
                 <div class="mush-card">
                     <span class="mush-name">${escapeHtml(name)}</span>
                     <span class="timer-display" id="timer-${safeId}">--:--:--</span>
                     <div class="input-row">
-                        <input type="number" id="h-${safeId}" placeholder="時" min="0">
-                        <input type="number" id="m-${safeId}" placeholder="分" min="0" max="59">
-                        <input type="number" id="s-${safeId}" placeholder="秒" min="0" max="59">
+                        <input type="number" inputmode="numeric" id="h-${safeId}" placeholder="時" min="0" aria-label="${label} 小時">
+                        <input type="number" inputmode="numeric" id="m-${safeId}" placeholder="分" min="0" max="59" aria-label="${label} 分鐘">
+                        <input type="number" inputmode="numeric" id="s-${safeId}" placeholder="秒" min="0" max="59" aria-label="${label} 秒數">
                     </div>
                     <button type="button" class="set-btn" data-point="${escapeHtml(name)}">開始倒數！</button>
                 </div>
